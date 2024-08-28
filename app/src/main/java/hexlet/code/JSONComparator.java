@@ -13,8 +13,7 @@ import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 
-
-public class JSONComparator {
+class JSONComparator {
     private static ObjectMapper configureMapper() {
         var objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
@@ -22,17 +21,18 @@ public class JSONComparator {
 
         return objectMapper;
     }
-    private static Map<String,Object> getFileDataAsMap(String data, ObjectMapper mapper) throws Exception {
-       return mapper.readValue(data, new TypeReference<Map<String,Object>>(){});
+
+    private static Map<String, Object> getFileDataAsMap(String data, ObjectMapper mapper) throws Exception {
+        return mapper.readValue(data, new TypeReference<Map<String, Object>>() { });
     }
 
     private static String getFormattedOutput(Map<String, Object> data, ObjectMapper mapper) throws Exception {
         var printer = new DefaultPrettyPrinter().withObjectIndenter(new DefaultIndenter("  ", "\n"));
         var json = mapper.writer(printer).writeValueAsString(data);
-        return json.replace("\"", "").replace(" :", ":");
+        return json.replace("\"", "").replace(" :", ":").replace(",", "").trim();
     }
 
-    private static Set<String> getUniqKeys(Map<String,Object> firstData, Map<String,Object> secondData) {
+    private static Set<String> getUniqKeys(Map<String, Object> firstData, Map<String, Object> secondData) {
         var firstKeys = firstData.keySet();
         var secondKeys = secondData.keySet();
 
@@ -43,7 +43,9 @@ public class JSONComparator {
         return keysSet;
     }
 
-    private static Map<String, Object> getTwoFilesCompareResult(Map<String, Object> firstFileData, Map<String, Object> secondFileData) {
+    private static Map<String, Object> getTwoFilesCompareResult(
+            Map<String, Object> firstFileData, Map<String, Object> secondFileData
+    ) {
         var keysSet = getUniqKeys(firstFileData, secondFileData);
         var resultMap = new LinkedHashMap<String, Object>();
 
