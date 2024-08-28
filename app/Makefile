@@ -13,7 +13,7 @@ install:
 	./gradlew clean install
 
 run-dist:
-	./build/install/app/bin/app sys.json burna.json
+	./build/install/app/bin/app sys.yml burna.yml
 
 run:
 	./gradlew run

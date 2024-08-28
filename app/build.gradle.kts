@@ -24,6 +24,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("org.apache.commons:commons-collections4:4.4")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.7.4")
 }
 
 tasks.test {
