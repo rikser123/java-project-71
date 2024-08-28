@@ -2,6 +2,7 @@ package hexlet.code.formatter;
 
 import hexlet.code.DifferItem;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public final class PlainFormatter implements Formatter {
@@ -24,7 +25,7 @@ public final class PlainFormatter implements Formatter {
 
     public String format(Map<String, DifferItem> data) throws Exception {
         var entries = data.entrySet();
-        var result = new StringBuffer();
+        var result = new ArrayList<String>();
 
         for (var entry : entries) {
             var key = entry.getKey();
@@ -34,19 +35,19 @@ public final class PlainFormatter implements Formatter {
             var formattedValue = formatValue(itemValues.get(0));
 
             if (state.equals("removed")) {
-                result.append("Property '" + key + "' was removed\n");
+                result.add("Property '" + key + "' was removed");
             }
 
             if (state.equals("added")) {
-                result.append("Property '" + key + "' was added with value: " + formattedValue + "\n");
+                result.add("Property '" + key + "' was added with value: " + formattedValue);
             }
 
             if (state.equals("changed")) {
-                result.append("Property '" + key + "' was updated. From "
-                        +  formattedValue + " to " + formatValue(itemValues.get(1)) + "\n");
+                result.add("Property '" + key + "' was updated. From "
+                        +  formattedValue + " to " + formatValue(itemValues.get(1)));
             }
         }
 
-        return result.toString();
+        return String.join("\n", result);
     }
 }

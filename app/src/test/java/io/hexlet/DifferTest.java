@@ -18,7 +18,7 @@ public class DifferTest {
     public void compareJson() throws Exception {
         var firstFilePath = getFixturePath("file1.json");
         var secondFilePath = getFixturePath("file2.json");
-        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString(), "stylish");
+        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString());
 
         var expected = "{\n"
                 + "  - follow: false\n"
@@ -36,7 +36,7 @@ public class DifferTest {
     public void compareYml() throws Exception {
         var firstFilePath = getFixturePath("file1.yml");
         var secondFilePath = getFixturePath("file2.yml");
-        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString(), "stylish");
+        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString());
 
         var expected = "{\n"
                 + "  - follow: false\n"
@@ -54,7 +54,7 @@ public class DifferTest {
     public void compareComposedJson() throws Exception {
         var firstFilePath = getFixturePath("composed1.json");
         var secondFilePath = getFixturePath("composed2.json");
-        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString(), "stylish");
+        var actual = Differ.generate(firstFilePath.toString(), secondFilePath.toString());
 
         var expected = "{\n"
                 + "    chars1: [a, b, c]\n"
@@ -103,7 +103,7 @@ public class DifferTest {
                 + "Property 'obj1' was added with value: [complex value]\n"
                 + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to 'none'\n";
+                + "Property 'setting3' was updated. From true to 'none'";
 
         assertEquals(expected, actual);
     }

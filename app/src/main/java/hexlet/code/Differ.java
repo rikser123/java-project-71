@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.JSONFormatter;
 import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
 
@@ -14,7 +15,7 @@ public class Differ {
     private static Path getFilePah(String filePath) {
         return Paths.get(filePath).toAbsolutePath().normalize();
     }
-    private static final List<String> ALLOWED_EXTENSIONS = List.of("json", "yml");
+    private static final List<String> ALLOWED_EXTENSIONS = List.of("json", "yml", "json");
 
     private static String getFileExtension(Path path) {
         var pathString = path.toString();
@@ -27,9 +28,15 @@ public class Differ {
                 return new StylishFormatter();
             case "plain":
                 return new PlainFormatter();
+            case "json":
+                return new JSONFormatter();
             default:
                 return new StylishFormatter();
         }
+    }
+
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return generate(filepath1, filepath2, "stylish");
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {

@@ -13,7 +13,7 @@ install:
 	./gradlew clean install
 
 run-dist:
-	./build/install/app/bin/app -f plain composed1.json composed2.json
+	./build/install/app/bin/app
 
 run:
 	./gradlew run

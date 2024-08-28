@@ -2,7 +2,7 @@ package hexlet.code;
 
 import java.util.List;
 
-public class DifferItem {
+public final class DifferItem {
     private String state;
     private List<Object> values;
 
