@@ -1,9 +1,11 @@
 package hexlet.code;
+
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.TreeSet;
-import java.util.Set;
-import java.util.List;
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -29,22 +31,28 @@ class Parser {
         for (var key: keysSet) {
             var isInFirstData = firstFileData.containsKey(key);
             var inInSecondData = secondFileData.containsKey(key);
-            var firstValue = String.valueOf(firstFileData.get(key));
-            var secondValue = String.valueOf(secondFileData.get(key));
+            var firstValue = firstFileData.get(key);
+            var secondValue = secondFileData.get(key);
+            var list = new ArrayList<Object>();
 
             if (!inInSecondData) {
-                resultMap.put(key, new DifferItem("removed", List.of(firstValue)));
+                list.add(firstValue);
+                resultMap.put(key, new DifferItem("removed", list));
             }
             if (!isInFirstData) {
-                resultMap.put(key, new DifferItem("added", List.of(secondValue)));
+                list.add(secondValue);
+                resultMap.put(key, new DifferItem("added", list));
             }
 
             if (isInFirstData && inInSecondData) {
                 var isEqual = String.valueOf(firstValue).equals(String.valueOf(secondValue));
                 if (isEqual) {
-                    resultMap.put(key, new DifferItem("unchanged", List.of(firstValue)));
+                    list.add(firstValue);
+                    resultMap.put(key, new DifferItem("unchanged", list));
                 } else {
-                    resultMap.put(key, new DifferItem("changed", List.of(firstValue, secondValue)));
+                    list.add(firstValue);
+                    list.add(secondValue);
+                    resultMap.put(key, new DifferItem("changed", list));
                 }
             }
         }

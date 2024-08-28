@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
 
 import java.nio.file.Files;
@@ -24,6 +25,8 @@ public class Differ {
         switch (format) {
             case "stylish":
                 return new StylishFormatter();
+            case "plain":
+                return new PlainFormatter();
             default:
                 return new StylishFormatter();
         }
@@ -46,6 +49,7 @@ public class Differ {
         var resultMap = Parser.parse(parserParameters);
 
         var formatter = createFormatter(format);
+
         var text = formatter.format(resultMap);
 
         return text;

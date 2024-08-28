@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class StylishFormatter implements Formatter {
+public final class StylishFormatter implements Formatter {
     public String format(Map<String, DifferItem> data) throws Exception {
         var mapper = new Beautifier();
         var result = new LinkedHashMap<String, Object>();
@@ -17,22 +17,23 @@ public class StylishFormatter implements Formatter {
             var key = entry.getKey();
             var differItem = entry.getValue();
             var values = differItem.getValues();
+            var formattedValue = String.valueOf(values.get(0));
 
             if (differItem.getState().equals("added")) {
-                result.put("+ " + key, values.get(0));
+                result.put("+ " + key, formattedValue);
             }
 
             if (differItem.getState().equals("removed")) {
-                result.put("- " + key, values.get(0));
+                result.put("- " + key, formattedValue);
             }
 
             if (differItem.getState().equals("unchanged")) {
-                result.put("  " + key, values.get(0));
+                result.put("  " + key, formattedValue);
             }
 
             if (differItem.getState().equals("changed")) {
-                result.put("- " + key, values.get(0));
-                result.put("+ " + key, values.get(1));
+                result.put("- " + key, formattedValue);
+                result.put("+ " + key, String.valueOf(values.get(1)));
             }
         }
 
